@@ -1,0 +1,28 @@
+sequenceDiagram
+    participant Client
+    participant FacetedObject
+    participant FacetRegistry
+    participant AccountFacet
+    participant NotificationFacet
+    
+    Client->>FacetedObject: new(employee)
+    Client->>FacetRegistry: getFacet("account")
+    FacetRegistry-->>Client: AccountFacet class
+    Client->>AccountFacet: new(accountNumber)
+    Client->>FacetedObject: attachFacet(accountFacet)
+    FacetedObject->>AccountFacet: onAttached(this)
+    
+    Note over FacetedObject: Runtime method binding
+    
+    Client->>FacetedObject: deposit(1000)
+    FacetedObject->>AccountFacet: deposit(1000)
+    AccountFacet-->>FacetedObject: newBalance
+    
+    opt Notification Available
+        FacetedObject->>NotificationFacet: notify("deposit", data)
+        NotificationFacet-->>Client: async notification
+    end
+    
+    FacetedObject-->>Client: operation result
+    
+    Note over Client,NotificationFacet: Facets coordinate automatically

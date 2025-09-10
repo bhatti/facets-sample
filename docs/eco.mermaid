@@ -1,0 +1,55 @@
+graph LR
+    subgraph "Core Domain"
+        Employee[Employee Object]
+        Customer[Customer Object]
+        Product[Product Object]
+    end
+    
+    subgraph "Cross-Cutting Facets"
+        Security[Security Facet<br/>Authentication<br/>Authorization]
+        Audit[Audit Facet<br/>Trail Logging<br/>Compliance]
+        Cache[Cache Facet<br/>Performance<br/>Optimization]
+        Notification[Notification Facet<br/>Events<br/>Messaging]
+    end
+    
+    subgraph "Domain-Specific Facets"
+        Account[Account Facet<br/>Financial Ops]
+        Performance[Performance Facet<br/>Metrics<br/>Goals]
+        Integration[Integration Facet<br/>External APIs<br/>Sync]
+        Workflow[Workflow Facet<br/>Process<br/>Automation]
+    end
+    
+    subgraph "Infrastructure"
+        Registry[Facet Registry<br/>Discovery<br/>Configuration]
+        Composer[Facet Composer<br/>Runtime Assembly]
+        Monitor[Performance Monitor<br/>Health Checks]
+    end
+    
+    Employee -.-> Security
+    Employee -.-> Account
+    Employee -.-> Performance
+    Customer -.-> Security
+    Customer -.-> Integration
+    Product -.-> Cache
+    Product -.-> Workflow
+    
+    Registry --> Composer
+    Composer --> Security
+    Composer --> Audit
+    Monitor --> Cache
+    Monitor --> Performance
+    
+    style Employee fill:#006400,stroke:#000,stroke-width:4px,color:#fff
+    style Customer fill:#228b22,stroke:#000,stroke-width:4px,color:#fff
+    style Product fill:#2e8b57,stroke:#000,stroke-width:4px,color:#fff
+    style Security fill:#8b0000,stroke:#000,stroke-width:4px,color:#fff
+    style Audit fill:#dc143c,stroke:#000,stroke-width:4px,color:#fff
+    style Cache fill:#191970,stroke:#000,stroke-width:4px,color:#fff
+    style Notification fill:#b22222,stroke:#000,stroke-width:4px,color:#fff
+    style Account fill:#800080,stroke:#000,stroke-width:4px,color:#fff
+    style Performance fill:#4b0082,stroke:#000,stroke-width:4px,color:#fff
+    style Integration fill:#483d8b,stroke:#000,stroke-width:4px,color:#fff
+    style Workflow fill:#8b4513,stroke:#000,stroke-width:4px,color:#fff
+    style Registry fill:#2f4f4f,stroke:#000,stroke-width:4px,color:#fff
+    style Composer fill:#556b2f,stroke:#000,stroke-width:4px,color:#fff
+    style Monitor fill:#4682b4,stroke:#000,stroke-width:4px,color:#fff

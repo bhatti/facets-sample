@@ -1,0 +1,30 @@
+flowchart TD
+    Start([Client Operation Request]) --> Auth{Check<br/>Authentication}
+    Auth -->|No Auth Facet| Direct[Direct Operation]
+    Auth -->|Has Auth Facet| CheckPerm[Check Permissions]
+    
+    CheckPerm --> |Authorized| Execute[Execute Core Operation]
+    CheckPerm --> |Denied| Error[Access Denied Error]
+    
+    Execute --> Cache{Cache<br/>Available?}
+    Cache -->|Yes| UpdateCache[Update Cache]
+    Cache -->|No| Notify{Notification<br/>Available?}
+    
+    UpdateCache --> Notify
+    Notify -->|Yes| SendNotification[Send Notification]
+    Notify -->|No| Audit{Audit<br/>Available?}
+    
+    SendNotification --> Audit
+    Audit -->|Yes| LogOperation[Log Operation]
+    Audit -->|No| Complete[Operation Complete]
+    
+    LogOperation --> Complete
+    Direct --> Complete
+    
+    style Start fill:#006400
+    style Complete fill:#191970
+    style Error fill:#4b0082
+    style Execute fill:#800080
+    style CheckPerm fill:#8b4513
+    style SendNotification fill:#8b0000
+    style LogOperation fill:#dc143c

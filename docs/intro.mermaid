@@ -1,0 +1,24 @@
+graph TB
+    CO[Core Object<br/>Employee] --> FO[FacetedObject]
+    FO --> AF[AccountFacet<br/>Financial Operations]
+    FO --> PF[PermissionFacet<br/>Access Control]
+    FO --> NF[NotificationFacet<br/>Messaging]
+    FO --> CF[CacheFacet<br/>Performance]
+    
+    AF --> |implements| FI[Facet Interface]
+    PF --> |implements| FI
+    NF --> |implements| FI
+    CF --> |implements| FI
+    
+    Client --> |uses| FO
+    FO --> |delegates to| CO
+    FO --> |composes with| AF
+    FO --> |composes with| PF
+    
+    style FO fill:#191970
+    style FI fill:#4b0082 
+    style CO fill:#800080
+    style AF fill:#8b4513 
+    style PF fill:#8b0000 
+    style NF fill:#2f4f4f 
+    style CF fill:#006400
